@@ -10,6 +10,26 @@
 
 ssize_t read_line(int fd, char *buffer, size_t max_length);
 
+char* my_strcasestr(const char *str, const char *to_find) {
+    int i, j;
+
+    if (to_find[0] == '\0') {
+        return (char *)str;
+    }
+
+    for (i = 0; str[i] != '\0'; i++) {
+        for (j = 0; to_find[j] != '\0'; j++) {
+            if (tolower((unsigned char)str[i + j]) != tolower((unsigned char)to_find[j])) {
+                break;
+            }
+        }
+        if (to_find[j] == '\0') {
+            return (char *)(str + i);
+        }
+    }
+    return NULL;
+}
+
 char* my_strstr(const char *str, const char *to_find) {
     int i, j;
 
