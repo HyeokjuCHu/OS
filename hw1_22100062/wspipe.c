@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
     int total_count = 0;
     int grep_mode = 0;
     int ignore_case = 0;
-    int max_lines = -1; // 추가: 최대 줄 수 제한 (-1이면 무제한)
+    int max_lines = -1;
 
     if (argc < 3)
     {
@@ -71,7 +71,6 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-    // 옵션 파싱
     int arg_index = 1;
     while (arg_index < argc && argv[arg_index][0] == '-') {
         if (strcmp(argv[arg_index], "-g") == 0) {
