@@ -3,6 +3,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <sys/wait.h>
+#include <ctype.h>
+
 
 #define READ_END 0
 #define WRITE_END 1
@@ -57,27 +59,51 @@ int main(int argc, char *argv[])
     int fd[2];
     int i;
     char buffer[BUFFER_SIZE];
-    char *command, *word;
+    char *command = NULL, *word = NULL;
     int total_count = 0;
     int grep_mode = 0;
+    int ignore_case = 0;
+    int max_lines = -1; // 추가: 최대 줄 수 제한 (-1이면 무제한)
 
     if (argc < 3)
     {
-        printf("Usage: %s [-g] <command> <word>\n", argv[0]);
+        printf("Usage: %s [-g] [-i] [-max N] <command> <word>\n", argv[0]);
         return 0;
     }
 
-    if (strcmp(argv[1], "-g") == 0)
-    {
-        grep_mode = 1;
-        command = argv[2];
-        word = argv[3];
+    // 옵션 파싱
+    int arg_index = 1;
+    while (arg_index < argc && argv[arg_index][0] == '-') {
+        if (strcmp(argv[arg_index], "-g") == 0) {
+            grep_mode = 1;
+        } else if (strcmp(argv[arg_index], "-i") == 0) {
+            ignore_case = 1;
+        } else if (strcmp(argv[arg_index], "-max") == 0) {
+            arg_index++;
+            if (arg_index < argc) {
+                max_lines = atoi(argv[arg_index]);
+                if (max_lines <= 0) {
+                    fprintf(stderr, "Invalid max line count: %s\n", argv[arg_index]);
+                    return 1;
+                }
+            } else {
+                fprintf(stderr, "Error: -max option requires a number\n");
+                return 1;
+            }
+        } else {
+            printf("Unknown option: %s\n", argv[arg_index]);
+            return 1;
+        }
+        arg_index++;
     }
-    else
-    {
-        command = argv[1];
-        word = argv[2];
+
+    if (arg_index + 1 >= argc) {
+        printf("Error: Missing <command> and/or <word>\n");
+        return 1;
     }
+
+    command = argv[arg_index];
+    word = argv[arg_index + 1];
 
     if (pipe(fd) == -1)
     {
@@ -94,20 +120,26 @@ int main(int argc, char *argv[])
 
     if (pid > 0)
     {
+        // 부모 프로세스
         close(fd[WRITE_END]);
         i = 1;
         char *ptr, *cur;
 
         while (read_line(fd[READ_END], buffer, BUFFER_SIZE - 1) != 0)
         {
+            if (max_lines > 0 && i > max_lines)
+                break;
+
             cur = buffer;
-            int found = (my_strstr(cur, word) != NULL);
+            int found = (ignore_case ? (my_strcasestr(cur, word) != NULL)
+                                     : (my_strstr(cur, word) != NULL));
 
             if (!grep_mode || (grep_mode && found))
             {
                 printf("%d: ", i);
 
-                while ((ptr = my_strstr(cur, word)) != NULL)
+                while ((ptr = (ignore_case ? my_strcasestr(cur, word)
+                                           : my_strstr(cur, word))) != NULL)
                 {
                     printf("%.*s", (int)(ptr - cur), cur);
                     printf("\033[31m%s\033[0m", word);
@@ -126,7 +158,7 @@ int main(int argc, char *argv[])
     }
     else
     {
-        // Child process
+        // 자식 프로세스
         close(fd[READ_END]);
         dup2(fd[WRITE_END], STDOUT_FILENO);
         close(fd[WRITE_END]);
@@ -136,6 +168,7 @@ int main(int argc, char *argv[])
 
     return 0;
 }
+
 
 ssize_t read_line(int fd, char *buffer, size_t max_length)
 {
