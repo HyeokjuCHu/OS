@@ -117,9 +117,8 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    if (pid > 0)
+    if (pid > 0) // 부모 프로세스
     {
-        // 부모 프로세스
         close(fd[WRITE_END]);
         i = 1;
         char *ptr, *cur;
