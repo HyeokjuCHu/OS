@@ -1,3 +1,13 @@
+/*
+기본적인 해결방법 설명
+Reader 또는 Writer가 대기 중임을 나타내는
+추가적인 카운터나 세마포어를 사용하고, lock 획득 결정 시 이 정보를 활용
+
+아이디어:https://ui.adsabs.harvard.edu/abs/2003cs........3005B/abstract
+"The known solutions to 
+this problem typically involve a number of global counters and queues"
+여기서 counter를 사용하기로 결정.
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
@@ -35,11 +45,6 @@ double get_elapsed_time(struct timeval *start_time);
 // Global variable for program start time
 struct timeval start_time;
 
-/**
- * @brief Calculates the elapsed time in seconds from the program's start.
- * @param start_time The program's starting time.
- * @return Elapsed time in seconds.
- */
 double get_elapsed_time(struct timeval *start_time) {
     struct timeval current_time;
     gettimeofday(&current_time, NULL);
@@ -53,7 +58,7 @@ void rwlock_init(rwlock_t *rw) {
     rw->readers = 0;
     sem_init(&rw->mutex, 0, 1);
     sem_init(&rw->writelock, 0, 1);
-    sem_init(&rw->fairlock, 0, 1); // Initialize fairness (gate) semaphore
+    sem_init(&rw->fairlock, 0, 1);
 }
 
 // Allows a reader thread to acquire the lock
