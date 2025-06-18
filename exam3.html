@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Final Exam Practice #3</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+        }
+
+        h1,
+        h2 {
+            color: #007bff;
+            text-align: center;
+        }
+
+        .instructions {
+            background-color: #e2f0ff;
+            border-left: 5px solid #007bff;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+        }
+
+        .question-block {
+            background-color: #ffffff;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .question-block p {
+            font-weight: bold;
+            margin-top: 0;
+        }
+
+        textarea,
+        input[type="text"] {
+            width: 98%;
+            padding: 8px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        pre {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .radio-group label {
+            display: block;
+            margin: 5px 0;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #fff;
+            background-color: #17a2b8;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #138496;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Operating Systems Comprehensive Practice Exam (#3)</h1>
+        <div class="instructions">
+            <h2>Instructions</h2>
+            <p>This is your final practice exam. It covers all topics from the scope. Answer all questions, and after
+                completion, click the "Export Answers to TXT" button to save your file for review.</p>
+        </div>
+
+        <form id="exam-form">
+            <div class="question-block">
+                <p>Q1. (Short Answer) Consider the code below. If the parent process creates a child using `fork()`, and
+                    the child modifies the file offset using `lseek()`, what will be printed by the parent process?
+                    Explain your answer in the context of the open file table.</p>
+                <pre>
+int fd = open("file.txt", O_RDONLY);
+int rc = fork();
+if (rc == 0) { // Child
+    lseek(fd, 10, SEEK_SET);
+} else { // Parent
+    wait(NULL);
+    int offset = lseek(fd, 0, SEEK_CUR);
+    printf("Parent offset: %d\n", offset);
+}
+                </pre>
+                <textarea id="q1" placeholder="What will be printed and why?"></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q2. (Calculation) A system has a memory access time of 200 nanoseconds. A page fault takes 8
+                    milliseconds (8,000,000 ns) to service. If we want the effective access time (EAT) to be no more
+                    than 400 nanoseconds, what is the maximum acceptable page fault rate `p`?</p>
+                <input type="text" id="q2" placeholder="Calculate the maximum page fault rate p...">
+            </div>
+
+            <div class="question-block">
+                <p>Q3. (Short Answer) The kernel often needs to allocate memory for its own data structures. Briefly
+                    describe one of the following strategies for kernel memory allocation: the Buddy System or Slab
+                    Allocation.</p>
+                <textarea id="q3" placeholder="Describe one of the two strategies..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q4. (Multiple Choice) What is the main advantage of sharing pages (e.g., for system libraries) among
+                    multiple processes?</p>
+                <div class="radio-group">
+                    <label><input type="radio" name="q4" value="A"> a) It improves security by isolating library
+                        code.</label>
+                    <label><input type="radio" name="q4" value="B"> b) It saves a significant amount of physical
+                        memory.</label>
+                    <label><input type="radio" name="q4" value="C"> c) It allows each process to have a larger logical
+                        address space.</label>
+                    <label><input type="radio" name="q4" value="D"> d) It simplifies the process of compiling
+                        code.</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>Q5. (Short Answer) What is the primary purpose of the `pthread_join()` function? What is likely to
+                    happen if a `main` thread creates several child threads and then exits without calling
+                    `pthread_join()` for them?</p>
+                <textarea id="q5" placeholder="Your answer here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q6. (Fill in the Blank) A major disadvantage of the Many-to-One multithreading model is that if one
+                    user thread makes a blocking system call, the entire _______________ will block, even if other user
+                    threads are ready to run.</p>
+                <input type="text" id="q6" placeholder="Your answer here...">
+            </div>
+
+            <div class="question-block">
+                <p>Q7. (Short Answer) A solution to the critical-section problem must satisfy three requirements. List
+                    these three requirements.</p>
+                <textarea id="q7" placeholder="List the three requirements..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q8. (Short Answer) The `pthread_cond_wait(pthread_cond_t *c, pthread_mutex_t *m)` function performs
+                    two actions atomically. What are these two actions?</p>
+                <textarea id="q8" placeholder="Describe the two atomic actions..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q9. (Short Answer) A parent process wants to wait until a child thread has finished its work before
+                    continuing. Using a semaphore, what initial value should the semaphore have to correctly implement
+                    this ordering?</p>
+                <input type="text" id="q9" placeholder="Enter the initial semaphore value...">
+            </div>
+
+            <div class="question-block">
+                <p>Q10. (Short Answer) In the Banker's Algorithm, what does the `Need` matrix represent, and how is it
+                    calculated from the `Max` and `Allocation` matrices?</p>
+                <textarea id="q10" placeholder="Your answer here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q11. (Fill in the Blank) To detect deadlocks in a system where each resource has only a single
+                    instance, the OS can build a directed graph by removing the resource nodes from the
+                    resource-allocation graph. This simplified graph is known as a _______________ graph.</p>
+                <input type="text" id="q11" placeholder="Your answer here...">
+            </div>
+
+            <div class="question-block">
+                <p>Q12. (Short Answer) What is the purpose of the `stat()` system call in a UNIX-like file system?</p>
+                <textarea id="q12" placeholder="Your answer here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q13. (Multiple Choice) Which of the following statements about hard links is TRUE?</p>
+                <div class="radio-group">
+                    <label><input type="radio" name="q13" value="A"> a) A hard link can point to a directory.</label>
+                    <label><input type="radio" name="q13" value="B"> b) A hard link can point to a file on a different
+                        partition (file system).</label>
+                    <label><input type="radio" name="q13" value="C"> c) Deleting the original file will break the hard
+                        link.</label>
+                    <label><input type="radio" name="q13" value="D"> d) A hard link is a directory entry that points to
+                        the same inode as another file.</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>Q14. (Short Answer) In an inode-based file system, how does the system access very large files that
+                    cannot be pointed to by direct pointers alone?</p>
+                <textarea id="q14" placeholder="Your answer here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q15. (Short Answer) What critical problem in file systems does forcing writes to disk (e.g., with
+                    `fsync()`) help to solve, especially in the event of a system crash?</p>
+                <textarea id="q15" placeholder="Your answer here..."></textarea>
+            </div>
+        </form>
+
+        <button id="export-btn">Export Answers to TXT</button>
+    </div>
+
+    <script>
+        document.getElementById('export-btn').addEventListener('click', function () {
+            let content = 'Operating Systems Final Exam #3 - Answers\n\n';
+            const form = document.getElementById('exam-form');
+            const questionBlocks = form.querySelectorAll('.question-block');
+
+            questionBlocks.forEach((block, index) => {
+                const p = block.querySelector('p');
+                if (!p) return;
+
+                const questionText = p.innerText.trim();
+                content += `${questionText}\n`;
+
+                let answer = 'Not Answered';
+
+                const textarea = block.querySelector('textarea');
+                const textInput = block.querySelector('input[type="text"]');
+                const radioButtons = block.querySelectorAll('input[type="radio"]');
+
+                if (textarea) {
+                    answer = textarea.value.trim();
+                } else if (textInput) {
+                    answer = textInput.value.trim();
+                } else if (radioButtons.length > 0) {
+                    const checkedRadio = Array.from(radioButtons).find(radio => radio.checked);
+                    if (checkedRadio) {
+                        answer = checkedRadio.value;
+                    }
+                }
+
+                content += `Answer: ${answer}\n\n`;
+            });
+
+            const blob = new Blob([content], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'exam3_answers.txt';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(link.href);
+        });
+    </script>
+
+</body>
+
+</html>
