@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Final Exam Practice</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        h1,
+        h2 {
+            color: #0056b3;
+            text-align: center;
+        }
+
+        .instructions {
+            background-color: #e7f3ff;
+            border-left: 5px solid #0056b3;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+        }
+
+        .question-block {
+            background-color: #ffffff;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .question-block p {
+            font-weight: bold;
+            margin-top: 0;
+        }
+
+        textarea,
+        input[type="text"] {
+            width: 98%;
+            padding: 8px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .radio-group label {
+            display: block;
+            margin: 5px 0;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Operating Systems Final Exam (Practice)</h1>
+        <div class="instructions">
+            <h2>Instructions</h2>
+            <p>Please answer all questions to the best of your ability. The scope covers Swapping, Virtual Memory,
+                Threads & Concurrency, Synchronization, Deadlocks, and File Systems. After completing the exam, click
+                the "Export Answers to TXT" button at the bottom to save your answers for submission.</p>
+        </div>
+
+        <form id="exam-form">
+            <div class="question-block">
+                <p>Q1. (Short Answer) Explain why standard swapping is not typically used in modern mobile operating
+                    systems like iOS and Android, and what alternative strategies they use to manage memory pressure.
+                </p>
+                <textarea id="q1" placeholder="Your answer here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q2. (Fill in the Blank) To handle very large address spaces, such as those in 64-bit systems, simple
+                    page tables become too large. One common solution is to use a multi-level structure, known as
+                    _______________ Paging, which pages the page table itself.</p>
+                <input type="text" id="q2" placeholder="Your answer here...">
+            </div>
+
+            <div class="question-block">
+                <p>Q3. (Short Answer) What is thrashing, and what is its primary cause? Briefly describe one method
+                    (e.g., Working-Set Model or Page-Fault Frequency) to prevent or control thrashing.</p>
+                <textarea id="q3" placeholder="Your answer here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q4. (Multiple Choice) Which of the following page replacement algorithms can suffer from Belady's
+                    Anomaly?</p>
+                <div class="radio-group">
+                    <label><input type="radio" name="q4" value="LRU"> a) Least Recently Used (LRU)</label>
+                    <label><input type="radio" name="q4" value="FIFO"> b) First-In, First-Out (FIFO)</label>
+                    <label><input type="radio" name="q4" value="Optimal"> c) Optimal (OPT)</label>
+                    <label><input type="radio" name="q4" value="Stack"> d) All stack algorithms</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>Q5. (Short Answer) Describe the sequence of events that the OS and hardware perform to handle a page
+                    fault for a page that exists on the backing store.</p>
+                <textarea id="q5" placeholder="Your answer here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q6. (Fill in the Blank) The One-to-One multithreading model maps each user thread to a kernel thread.
+                    Its main advantage over the Many-to-One model is that it provides better _______________ by allowing
+                    multiple threads from the same process to run on different cores simultaneously.</p>
+                <input type="text" id="q6" placeholder="Your answer here...">
+            </div>
+
+            <div class="question-block">
+                <p>Q7. (Short Answer) What is a race condition? Provide a simple code example or scenario (like the
+                    `counter++` example) that demonstrates it.</p>
+                <textarea id="q7" placeholder="Your answer here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q8. (Short Answer) Explain the difference between a mutex and a counting semaphore. In what scenario
+                    would you choose one over the other?</p>
+                <textarea id="q8" placeholder="Your answer here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q9. (Short Answer) When using condition variables, why is it crucial to use a `while` loop to
+                    re-check the condition after `pthread_cond_wait()` returns, instead of a simple `if` statement? What
+                    is the name for the "semantics" that makes this necessary?</p>
+                <textarea id="q9" placeholder="Your answer here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q10. (Multiple Choice) In the context of the Bounded-Buffer problem using semaphores, what should be
+                    the initial values for the `empty`, `full`, and `mutex` semaphores, assuming a buffer of size `N`?
+                </p>
+                <div class="radio-group">
+                    <label><input type="radio" name="q10" value="A"> a) empty=0, full=N, mutex=1</label>
+                    <label><input type="radio" name="q10" value="B"> b) empty=N, full=0, mutex=1</label>
+                    <label><input type="radio" name="q10" value="C"> c) empty=N, full=1, mutex=0</label>
+                    <label><input type="radio" name="q10" value="D"> d) empty=1, full=1, mutex=1</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>Q11. (Short Answer) List the four necessary conditions for a deadlock to occur.</p>
+                <textarea id="q11" placeholder="List the four conditions here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q12. (Short Answer) How does the deadlock prevention strategy of "Circular Wait" prevention work?
+                    Provide a simple example (like the Dining Philosophers or two mutexes).</p>
+                <textarea id="q12" placeholder="Your answer here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q13. (Fill in the Blank) In the Banker's Algorithm for deadlock avoidance, if the system can find a
+                    sequence of all processes such that each process can obtain its required resources, execute, and
+                    terminate, the system is said to be in a _________ state.</p>
+                <input type="text" id="q13" placeholder="Your answer here...">
+            </div>
+
+            <div class="question-block">
+                <p>Q14. (Short Answer) Compare and contrast hard links and symbolic (soft) links in a file system. What
+                    happens to each type of link when the original file it points to is deleted?</p>
+                <textarea id="q14" placeholder="Your answer here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q15. (Short Answer) What is an inode in a file system? List at least three pieces of metadata that an
+                    inode typically stores about a file.</p>
+                <textarea id="q15" placeholder="Your answer here..."></textarea>
+            </div>
+        </form>
+
+        <button id="export-btn">Export Answers to TXT</button>
+    </div>
+
+    <script>
+        document.getElementById('export-btn').addEventListener('click', function () {
+            let content = 'Operating Systems Final Exam - Answers\n\n';
+            const form = document.getElementById('exam-form');
+            const questionBlocks = form.querySelectorAll('.question-block');
+
+            questionBlocks.forEach((block, index) => {
+                const questionText = block.querySelector('p').innerText.trim();
+                content += `${questionText}\n`;
+
+                let answer = 'Not Answered';
+
+                const textarea = block.querySelector('textarea');
+                const textInput = block.querySelector('input[type="text"]');
+                const radioButtons = block.querySelectorAll('input[type="radio"]');
+
+                if (textarea) {
+                    answer = textarea.value.trim();
+                } else if (textInput) {
+                    answer = textInput.value.trim();
+                } else if (radioButtons.length > 0) {
+                    const checkedRadio = Array.from(radioButtons).find(radio => radio.checked);
+                    if (checkedRadio) {
+                        answer = checkedRadio.value;
+                    }
+                }
+
+                content += `Answer: ${answer}\n\n`;
+            });
+
+            const blob = new Blob([content], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'exam_answers.txt';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(link.href);
+        });
+    </script>
+
+</body>
+
+</html>
