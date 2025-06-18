@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Final Exam Practice #2</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        h1, h2 {
+            color: #d9534f;
+            text-align: center;
+        }
+        .instructions {
+            background-color: #fcf8e3;
+            border-left: 5px solid #f0ad4e;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+        }
+        .question-block {
+            background-color: #ffffff;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .question-block p {
+            font-weight: bold;
+            margin-top: 0;
+        }
+        textarea, input[type="text"] {
+            width: 98%;
+            padding: 8px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .radio-group label {
+            display: block;
+            margin: 5px 0;
+        }
+        pre {
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #fff;
+            background-color: #5cb85c;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Operating Systems Final Exam (Practice #2)</h1>
+        <div class="instructions">
+            <h2>Instructions</h2>
+            <p>This is your second practice exam. Take your time to think through each question. The scope is the same as before. After completing the exam, click the "Export Answers to TXT" button at the bottom to save your answers for submission.</p>
+        </div>
+
+        <form id="exam-form">
+            <div class="question-block">
+                <p>Q1. (Short Answer) What is Copy-on-Write (COW)? Explain how the `fork()` system call utilizes this technique to optimize process creation.</p>
+                <textarea id="q1" placeholder="Your answer here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q2. (Short Answer) What is the role of the Translation Look-aside Buffer (TLB) in a paged memory system? What happens during a "TLB miss"?</p>
+                <textarea id="q2" placeholder="Your answer here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q3. (Calculation) Consider the following page reference string: 1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5. Assuming demand paging with four (4) available frames, how many page faults would occur for the LRU (Least Recently Used) replacement algorithm?</p>
+                <input type="text" id="q3" placeholder="Enter the number of page faults...">
+            </div>
+            
+            <div class="question-block">
+                <p>Q4. (Multiple Choice) Which page table structure is designed to save memory by having one entry per physical frame in the system, rather than one entry per logical page for each process?</p>
+                <div class="radio-group">
+                    <label><input type="radio" name="q4" value="Hierarchical"> a) Hierarchical Page Table</label>
+                    <label><input type="radio" name="q4" value="Hashed"> b) Hashed Page Table</label>
+                    <label><input type="radio" name="q4" value="Inverted"> c) Inverted Page Table</label>
+                    <label><input type="radio" name="q4" value="Forward-mapped"> d) Forward-mapped Page Table</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>Q5. (Short Answer) The following C code using pthreads has a critical bug. Identify the bug and explain why it is a problem.</p>
+                <pre>
+void *mythread(void *arg) {
+    myret_t r; // Allocated on the thread's stack
+    r.x = 1;
+    r.y = 2;
+    return (void *) &r; // BAD!
+}
+
+int main() {
+    pthread_t p;
+    myret_t *m;
+    pthread_create(&p, NULL, mythread, NULL);
+    pthread_join(p, (void **) &m);
+    printf("returned %d %d\n", m->x, m->y); // Use m
+    return 0;
+}
+                </pre>
+                <textarea id="q5" placeholder="Identify the bug and explain the problem..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q6. (Fill in the Blank) To build simple spinlocks without OS support, we need hardware support for _______________ instructions, such as `TestAndSet` or `CompareAndSwap`, which can read and modify a memory location without being interrupted.</p>
+                <input type="text" id="q6" placeholder="Your answer here...">
+            </div>
+            
+            <div class="question-block">
+                <p>Q7. (Short Answer) Provide a specific code scenario or problem (e.g., Bounded Buffer, Reader-Writer) where a counting semaphore is more appropriate than a mutex, and explain why.</p>
+                <textarea id="q7" placeholder="Your answer here..."></textarea>
+            </div>
+            
+            <div class="question-block">
+                <p>Q8. (Short Answer) The simple reader-writer lock implementation can lead to writer starvation. Explain what this means and suggest a modification to the lock protocol to make it fairer to writers.</p>
+                <textarea id="q8" placeholder="Your answer here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q9. (Short Answer) The Dining Philosophers problem is a classic synchronization problem that can lead to deadlock. Describe a specific, deadlock-free solution (e.g., an asymmetric solution or one using a waiter/token).</p>
+                <textarea id="q9" placeholder="Your answer here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q10. (Short Answer) In a resource-allocation graph, is it possible to have a cycle but no deadlock? If yes, under what condition?</p>
+                <textarea id="q10" placeholder="Your answer here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q11. (Multiple Choice) The Banker's Algorithm is an example of a technique for:</p>
+                <div class="radio-group">
+                    <label><input type="radio" name="q11" value="A"> a) Deadlock Prevention</label>
+                    <label><input type="radio" name="q11" value="B"> b) Deadlock Detection</label>
+                    <label><input type="radio" name="q11" value="C"> c) Deadlock Avoidance</label>
+                    <label><input type="radio" name="q11" value="D"> d) Deadlock Recovery</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>Q12. (Short Answer) If a system detects that a deadlock has occurred, what are the two primary strategies it can use for recovery?</p>
+                <textarea id="q12" placeholder="Describe the two main recovery strategies..."></textarea>
+            </div>
+            
+            <div class="question-block">
+                <p>Q13. (Fill in the Blank) When an application like a database needs to ensure that data written with the `write()` system call is durably saved to the storage device, it should call _______________ to force the data from the buffer cache to the disk.</p>
+                <input type="text" id="q13" placeholder="Your answer here...">
+            </div>
+
+            <div class="question-block">
+                <p>Q14. (Short Answer) In a UNIX-like file system, what two essential pieces of information does a directory entry contain?</p>
+                <textarea id="q14" placeholder="Your answer here..."></textarea>
+            </div>
+            
+            <div class="question-block">
+                <p>Q15. (Short Answer) What does it mean to "mount" a file system? What is a "mount point"?</p>
+                <textarea id="q15" placeholder="Your answer here..."></textarea>
+            </div>
+        </form>
+
+        <button id="export-btn">Export Answers to TXT</button>
+    </div>
+
+    <script>
+        document.getElementById('export-btn').addEventListener('click', function() {
+            let content = 'Operating Systems Final Exam #2 - Answers\n\n';
+            const form = document.getElementById('exam-form');
+            const questionBlocks = form.querySelectorAll('.question-block');
+
+            questionBlocks.forEach((block, index) => {
+                const p = block.querySelector('p');
+                if (!p) return;
+
+                const questionText = p.innerText.trim();
+                content += `${questionText}\n`;
+                
+                let answer = 'Not Answered';
+                
+                const textarea = block.querySelector('textarea');
+                const textInput = block.querySelector('input[type="text"]');
+                const radioButtons = block.querySelectorAll('input[type="radio"]');
+
+                if (textarea) {
+                    answer = textarea.value.trim();
+                } else if (textInput) {
+                    answer = textInput.value.trim();
+                } else if (radioButtons.length > 0) {
+                    const checkedRadio = Array.from(radioButtons).find(radio => radio.checked);
+                    if (checkedRadio) {
+                        answer = checkedRadio.value;
+                    }
+                }
+                
+                content += `Answer: ${answer}\n\n`;
+            });
+
+            const blob = new Blob([content], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'exam2_answers.txt';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(link.href);
+        });
+    </script>
+
+</body>
+</html>
