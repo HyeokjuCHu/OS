@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Final Exam Practice #4</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f0f2f5;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+        }
+        h1, h2 {
+            color: #495057;
+            text-align: center;
+        }
+        .instructions {
+            background-color: #e9ecef;
+            border-left: 5px solid #6c757d;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+        }
+        .question-block {
+            background-color: #ffffff;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .question-block p {
+            font-weight: bold;
+            margin-top: 0;
+        }
+        textarea, input[type="text"] {
+            width: 98%;
+            padding: 8px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .radio-group label {
+            display: block;
+            margin: 5px 0;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #fff;
+            background-color: #343a40;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #23272b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Operating Systems Final Practice Exam (#4)</h1>
+        <div class="instructions">
+            <h2>Instructions</h2>
+            <p>This is your fourth and final practice exam. This will be a great final check of your knowledge. After completion, click the "Export Answers to TXT" button to save your file for review.</p>
+        </div>
+
+        <form id="exam-form">
+            <div class="question-block">
+                <p>Q1. (Short Answer) When swapping is used, the context-switch time becomes very high. What is the most time-consuming part of swapping a process, and why?</p>
+                <textarea id="q1" placeholder="Your answer here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q2. (Short Answer) We learned that modern mobile OSes do not use traditional swapping. How does the Copy-on-Write (COW) mechanism contribute to efficient memory management in such systems, especially during process creation (e.g., via `fork()`)?</p>
+                <textarea id="q2" placeholder="Your answer here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q3. (Short Answer) In demand paging, what is the purpose of a "modify bit" (or "dirty bit") associated with a page frame? How does it help optimize page replacement?</p>
+                <textarea id="q3" placeholder="Your answer here..."></textarea>
+            </div>
+            
+            <div class="question-block">
+                <p>Q4. (Fill in the Blank) The amount of memory that can be accessed directly from the TLB is called the _______________. This can be increased by either increasing the number of entries in the TLB or by increasing the page size.</p>
+                <input type="text" id="q4" placeholder="Your answer here...">
+            </div>
+
+            <div class="question-block">
+                <p>Q5. (Short Answer) The `ps -ef` command in Linux often shows kernel processes like `kthreadd` or `kworker`. What are kernel threads, and what is one typical task they might perform?</p>
+                <textarea id="q5" placeholder="Your answer here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q6. (Short Answer) Explain the difference between Concurrency and Parallelism. Can a system with a single-core CPU achieve parallelism? Why or why not?</p>
+                <textarea id="q6" placeholder="Your answer here...">
+            </div>
+            
+            <div class="question-block">
+                <p>Q7. (Short Answer) What is a "Two-Phase Lock"? Describe its two phases and explain why this approach might be more efficient than a simple spinlock or a lock that always puts the thread to sleep.</p>
+                <textarea id="q7" placeholder="Your answer here..."></textarea>
+            </div>
+            
+            <div class="question-block">
+                <p>Q8. (Short Answer) In POSIX threads, what is the difference between `pthread_cond_signal()` and `pthread_cond_broadcast()`?</p>
+                <textarea id="q8" placeholder="Your answer here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q9. (Multiple Choice) Which of the following is the key difference between a binary semaphore and a counting semaphore?</p>
+                <div class="radio-group">
+                    <label><input type="radio" name="q9" value="A"> a) A binary semaphore is faster than a counting semaphore.</label>
+                    <label><input type="radio" name="q9" value="B"> b) A binary semaphore can only have values 0 or 1, while a counting semaphore can have any non-negative integer value.</label>
+                    <label><input type="radio" name="q9" value="C"> c) Only a binary semaphore can be used for mutual exclusion.</label>
+                    <label><input type="radio" name="q9" value="D"> d) A counting semaphore requires hardware support, while a binary semaphore does not.</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>Q10. (Short Answer) A deadlock requires four necessary conditions to hold simultaneously. If a system is designed to prevent the "Circular Wait" condition, is a deadlock still possible? Explain why or why not.</p>
+                <textarea id="q10" placeholder="Your answer here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q11. (Short Answer) In the Banker's Algorithm, if a process's request for resources would lead the system into an "unsafe state," what does the system do? Does it terminate the process?</p>
+                <textarea id="q11" placeholder="Your answer here..."></textarea>
+            </div>
+            
+            <div class="question-block">
+                <p>Q12. (Short Answer) The file manipulation APIs list both `fsync()` and `fdatasync()`. What is the key difference between these two system calls?</p>
+                <textarea id="q12" placeholder="Your answer here..."></textarea>
+            </div>
+
+            <div class="question-block">
+                <p>Q13. (Fill in the Blank) A file system needs a place to store metadata about the entire file system, such as the total number of blocks, number of inodes, and the location of the inode bitmap. This information is typically stored in a structure known as the _______________.</p>
+                <input type="text" id="q13" placeholder="Your answer here...">
+            </div>
+
+            <div class="question-block">
+                <p>Q14. (Short Answer) What is the main purpose of a directory in a file system?</p>
+                <textarea id="q14"placeholder="Your answer here..."></textarea>
+            </div>
+            
+            <div class="question-block">
+                <p>Q15. (Short Answer) What problem was the Page Address Extension (PAE) in the Intel IA-32 architecture designed to solve?</p>
+                <textarea id="q15" placeholder="Your answer here..."></textarea>
+            </div>
+        </form>
+
+        <button id="export-btn">Export Answers to TXT</button>
+    </div>
+
+    <script>
+        document.getElementById('export-btn').addEventListener('click', function() {
+            let content = 'Operating Systems Final Exam #4 - Answers\n\n';
+            const form = document.getElementById('exam-form');
+            const questionBlocks = form.querySelectorAll('.question-block');
+
+            questionBlocks.forEach((block, index) => {
+                const p = block.querySelector('p');
+                if (!p) return;
+
+                const questionText = p.innerText.trim();
+                content += `${questionText}\n`;
+                
+                let answer = 'Not Answered';
+                
+                const textarea = block.querySelector('textarea');
+                const textInput = block.querySelector('input[type="text"]');
+                const radioButtons = block.querySelectorAll('input[type="radio"]');
+
+                if (textarea) {
+                    answer = textarea.value.trim();
+                } else if (textInput) {
+                    answer = textInput.value.trim();
+                } else if (radioButtons.length > 0) {
+                    const checkedRadio = Array.from(radioButtons).find(radio => radio.checked);
+                    if (checkedRadio) {
+                        answer = checkedRadio.value;
+                    }
+                }
+                
+                content += `Answer: ${answer}\n\n`;
+            });
+
+            const blob = new Blob([content], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'exam4_answers.txt';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(link.href);
+        });
+    </script>
+
+</body>
+</html>
