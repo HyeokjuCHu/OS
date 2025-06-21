@@ -7,10 +7,10 @@ CC = gcc
 CFLAGS = -Wall -Wextra -g -pthread
 
 # 실행 파일 이름
-TARGET = mtws
+TARGET = multi_t
 
 # 소스 파일
-SOURCES = mtws.c
+SOURCES = multi_t.c
 
 # 기본 빌드 규칙
 all: $(TARGET)

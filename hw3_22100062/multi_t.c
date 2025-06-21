@@ -66,7 +66,7 @@ void put_item(const char* path) {
     bounded_buffer.buffer[bounded_buffer.in] = strdup(path); // 경로 복사
     bounded_buffer.in = (bounded_buffer.in + 1) % bounded_buffer.capacity;
     bounded_buffer.count++;
-=
+
     pthread_cond_signal(&bounded_buffer.cond_empty);
     pthread_mutex_unlock(&bounded_buffer.mutex);
 }
@@ -181,7 +181,7 @@ void* consumer_thread_func(void* arg) {
 }
 
 void print_usage() {
-    printf("Usage: ./mtws\n");
+    printf("Usage: ./multi_t\n");
     printf("  -b: bounded buffer size\n");
     printf("  -t: number of threads searching word (except for main thread)\n");
     printf("  -d: search directory\n");
